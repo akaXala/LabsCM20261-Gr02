@@ -13,18 +13,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.edu.udea.compumovil.gr02_20261.lab2.ui.theme.Labs20261Gr02Theme
 
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import co.edu.udea.compumovil.gr02_20261.lab2.data.RetrofitClient
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            Labs20261Gr02Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+        lifecycleScope.launch {
+            try {
+                val emails = RetrofitClient.apiService.getEmails()
+                emails.forEach { email ->
+                    Log.d("RetrofitTest", "Éxito - Asunto: ${email.subject} | Remitente: ${email.sender}")
                 }
+            } catch (e: Exception) {
+                Log.e("RetrofitTest", "Error consumiendo la API: ${e.message}")
             }
         }
     }
