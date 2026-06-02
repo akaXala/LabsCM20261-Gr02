@@ -11,26 +11,28 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import co.edu.udea.compumovil.gr02_20261.lab2.ui.theme.Labs20261Gr02Theme
+import java.util.concurrent.TimeUnit
 
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import co.edu.udea.compumovil.gr02_20261.lab2.data.RetrofitClient
+import co.edu.udea.compumovil.gr02_20261.lab2.data.EmailFetchWorker
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            try {
-                val emails = RetrofitClient.apiService.getEmails()
-                emails.forEach { email ->
-                    Log.d("RetrofitTest", "Éxito - Asunto: ${email.subject} | Remitente: ${email.sender}")
-                }
-            } catch (e: Exception) {
-                Log.e("RetrofitTest", "Error consumiendo la API: ${e.message}")
-            }
-        }
+        val workRequest = PeriodicWorkRequestBuilder<EmailFetchWorker>(15, TimeUnit.MINUTES).build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            "FetchEmailsTask",
+            ExistingPeriodicWorkPolicy.KEEP, // Evita duplicar la tarea si ya existe
+            workRequest
+        )
     }
 }
 
