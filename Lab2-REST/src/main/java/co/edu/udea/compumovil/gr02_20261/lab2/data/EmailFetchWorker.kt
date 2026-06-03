@@ -15,16 +15,12 @@ class EmailFetchWorker(
             // Hacemos la petición a MockAPI
             val emails = RetrofitClient.apiService.getEmails()
 
-            // Por ahora, solo los imprimimos para confirmar que el Worker se ejecuta.
-            emails.forEach { email ->
-                Log.d("WorkerTest", "Worker en segundo plano descargó: ${email.subject}")
-            }
+            EmailRepository.updateEmails(emails)
 
-            // Indicamos que el trabajo terminó con éxito
+            Log.d("WorkerTest", "Worker guardó ${emails.size} correos en memoria.")
             Result.success()
         } catch (e: Exception) {
             Log.e("WorkerTest", "Error en el Worker: ${e.message}")
-            // Si hay un error (ej. sin internet), le decimos a Android que reintente más tarde
             Result.retry()
         }
     }
