@@ -1,0 +1,6 @@
+Nombres:
+- Arath Xala Jiménez (akaXala)
+- Miguel Angel Puerta Vasquez (MiguelAPuerta)
+- Daniel León Danzo (DainXOR)
+
+URL: https://github.com/akaXala/LabsCM20261-Gr02
