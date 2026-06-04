@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Labs20261-Gr02</string>
+    <string name="inbox_title">Inbox</string>
+    <string name="waiting_emails">Waiting for emails...</string>
+    <string name="message_title">Message</string>
+    <string name="back_button_desc">Back</string>
+    <string name="sender_label">From: %1$s</string>
+    <string name="date_label">Date: %1$s</string>
+    <string name="email_not_found">Email not found</string>
+    <string name="switch_language">Switch Language</string>
 </resources>

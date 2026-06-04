@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Labs20261-Gr02</string>
+    <string name="inbox_title">Bandeja de Entrada</string>
+    <string name="waiting_emails">Esperando correos...</string>
+    <string name="message_title">Mensaje</string>
+    <string name="back_button_desc">Volver</string>
+    <string name="sender_label">De: %1$s</string>
+    <string name="date_label">Fecha: %1$s</string>
+    <string name="email_not_found">Correo no encontrado</string>
+    <string name="switch_language">Cambiar Idioma</string>
+</resources>
